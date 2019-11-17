@@ -15,7 +15,7 @@ public class ReviewDAO {
      * @param reviewData CSVRow containing the data of the booking
 	 */
     public static void insertReview(CSVRow bookingData) {
-    	CSVFileIO.writeToCSV("reviews.csv", bookingData);
+    	CSVFileIO.writeToCSV("src/reviews.csv", bookingData);
     }
 
     /*
@@ -23,7 +23,7 @@ public class ReviewDAO {
      * @return List of CSVRows containing the data of all reviews
      */
     public static List<CSVRow> getReviews() {
-    	List<CSVRow> table = CSVFileIO.getParsedCSV("reviews.csv");
+    	List<CSVRow> table = CSVFileIO.getParsedCSV("src/reviews.csv");
     	return table;
     }
 }

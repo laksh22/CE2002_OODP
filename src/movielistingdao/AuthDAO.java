@@ -16,7 +16,7 @@ public class AuthDAO {
      * @return List of CSVRows containing the data of alluser's credentials 
 	 */
     public static List<CSVRow> getUserCredentials() {
-    	List<CSVRow> table = CSVFileIO.getParsedCSV("auth.csv");
+    	List<CSVRow> table = CSVFileIO.getParsedCSV("src/auth.csv");
     	return table;
     }
 }
