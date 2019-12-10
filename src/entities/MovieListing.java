@@ -10,7 +10,14 @@ import java.util.Date;
  */
 public class MovieListing implements Serializable {
 
-	static final long serialVersionUID = 4646206671745589693l;
+    /**
+     * UID of serializable class
+     */
+    static final long serialVersionUID = 4646206671745589693l;
+
+    /**
+     * ID Constant of value for a movie listings that has been cancelled.
+     */
     public static final int CANCELLED = -1;
 
     /**
@@ -38,6 +45,15 @@ public class MovieListing implements Serializable {
      */
     private Movie movie;
 
+    /**
+     * Constructor
+     *
+     * @param id           Id of the movie listing
+     * @param cineplexName Name of cineplex
+     * @param cinemaHall   Cinema Hall object for the movie listing
+     * @param showTime     Starting time of movie showing
+     * @param movie        Movie object
+     */
     public MovieListing(int id, String cineplexName, CinemaHall cinemaHall, Date showTime, Movie movie) {
         this.id = id;
         this.cineplexName = cineplexName;
@@ -46,21 +62,38 @@ public class MovieListing implements Serializable {
         this.movie = movie;
     }
 
-    // Getters
-
+    /**
+     * Getter
+     *
+     * @return Id
+     */
     public int getId() {
         return id;
     }
-    
-    
+
+    /**
+     * Getter
+     *
+     * @return Cineplex name
+     */
     public String getCineplexName() {
         return cineplexName;
     }
 
+    /**
+     * Getter
+     *
+     * @return Cinema Hall object
+     */
     public CinemaHall getCinemaHall() {
         return cinemaHall;
     }
 
+    /**
+     * Getter
+     *
+     * @return Date object of starting time
+     */
     public Date getShowTime() {
         return showTime;
     }
@@ -74,24 +107,47 @@ public class MovieListing implements Serializable {
         return this.movie;
     }
 
-    // Setters
-
+    /**
+     * Setter
+     *
+     * @param id id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Setter
+     *
+     * @param cineplexName Name of cineplex
+     */
     public void setCineplexID(String cineplexName) {
         this.cineplexName = cineplexName;
     }
 
+    /**
+     * Setter
+     *
+     * @param cinemaHall Cinema hall object
+     */
     public void setCinemaHall(CinemaHall cinemaHall) {
         this.cinemaHall = cinemaHall;
     }
 
+    /**
+     * Setter
+     *
+     * @param showTime Data object
+     */
     public void setShowTime(Date showTime) {
         this.showTime = showTime;
     }
 
+    /**
+     * Setter
+     *
+     * @param movie Movie object
+     */
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
@@ -99,8 +155,8 @@ public class MovieListing implements Serializable {
     /**
      * Book a seat
      *
-     * @param row
-     * @param column
+     * @param row    Row index
+     * @param column column index
      * @return True if booking was successful
      */
     public boolean bookSeat(int row, int column) {
@@ -110,8 +166,8 @@ public class MovieListing implements Serializable {
     /**
      * Unbook a seat
      *
-     * @param row
-     * @param column
+     * @param row    Row index
+     * @param column Column index
      * @return True if unbooking was successful
      */
     public boolean unbookSeat(int row, int column) {
@@ -125,6 +181,13 @@ public class MovieListing implements Serializable {
         cinemaHall.getFloorPlan().printOutFloorPlan();
     }
 
+    /**
+     * Check if a seat is empty
+     *
+     * @param row    Row index
+     * @param column column index
+     * @return Return true if a seat is true, false if else
+     */
     public boolean checkIfSeatFree(int row, int column) {
         return cinemaHall.getFloorPlan().getSeatStatus(row, column);
     }

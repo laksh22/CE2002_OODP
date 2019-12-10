@@ -12,15 +12,19 @@ import movielistingdao.IMovieListingDAO;
  */
 public abstract class MovieListingDAOFactory {
 
-    private static IMovieListingDAO dbdao = null;
-
+    /**
+     * Return DAO according to caller type
+     *
+     * @param type Caller type
+     * @return IMovieListingDAO
+     */
     public static IMovieListingDAO getMovieListingDBDAO(String type) {
         if (type.trim().toUpperCase().equals("ADMIN")) {
-            dbdao = new AdminMovieListingDAO();
+            return new AdminMovieListingDAO();
         } else if (type.trim().toUpperCase().equals("CUSTOMER")) {
-            dbdao = new CustomerMovieListingDAO();
+            return new CustomerMovieListingDAO();
         }
-        return dbdao;
+        return null;
     }
 
 }

@@ -17,19 +17,33 @@ import entities.MovieListing;
  */
 public class MovieListingDB {
 
-    private static final String FILE_PATH = "movie_listings_db.txt";
+    /**
+     * File path to text file
+     */
+    private static final String FILE_PATH = "./movie_listings_db.txt";
 
     /**
      * List of all movies in the database
      */
     private static List<MovieListing> movieListingsList = new ArrayList<>();
 
+    /**
+     * Static instance of this database
+     */
     private static MovieListingDB instance;
 
+    /**
+     * Private constructor
+     */
     private MovieListingDB() {
         openDatabase();
     }
 
+    /**
+     * Singleton pattern to get the instance of the Movie Database
+     *
+     * @return Static instance of this database
+     */
     public static MovieListingDB getInstance() {
         if (instance == null) {
             instance = new MovieListingDB();
@@ -37,8 +51,13 @@ public class MovieListingDB {
         return instance;
     }
 
+    /**
+     * Getter method
+     *
+     * @return Current list of movielistings in the database
+     */
     public List<MovieListing> getMovieList() {
-    	
+
         return movieListingsList;
     }
 

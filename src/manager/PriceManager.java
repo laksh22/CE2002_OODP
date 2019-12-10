@@ -18,7 +18,7 @@ public class PriceManager {
     public static final int THREE_D = 8;
 
     
-	private static final String Price_Path="price_csv.csv";
+	private static final String Price_Path="src/price_csv.csv";
 	public static void rewrite(String Path, List<CSVRow> table) {
 		CSVFileIO.rewriteToCSV(Path,table);
 	}

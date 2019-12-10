@@ -2,6 +2,8 @@ package ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,13 +21,23 @@ import manager.CustomerMovieListingManager;
 public class CustomerMovieListingUI {
     private int sel = -1;
     private Scanner scanner;
+
+    /**
+     * CustomerMovieListingManager attribute
+     */
     private CustomerMovieListingManager listingDBManager;
 
+    /**
+     * Constructor
+     */
     public CustomerMovieListingUI() {
         scanner = new Scanner(System.in);
         listingDBManager = new CustomerMovieListingManager();
     }
 
+    /**
+     * Start up sequence for this UI module
+     */
     public void startUp() {
         System.out.println("****** Welcome to Movie Listing Manager ******");
         while (sel != 0) {
@@ -35,8 +47,16 @@ public class CustomerMovieListingUI {
             System.out.println("(2) - Search by Movie");
             System.out.println("(3) - Search by Cineplex");
 
-            sel = scanner.nextInt();
-            scanner.nextLine();
+            while (true) {
+                try {
+                    sel = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
 
             switch (sel) {
                 case 1:
@@ -57,11 +77,18 @@ public class CustomerMovieListingUI {
      */
     private void listOutAllUpcomingMovieListings() {
         List<MovieListing> movieListingList = listingDBManager.getAllUpcomingMovieListings();
-        if (movieListingList.size() == 0) {
+        List<MovieListing> relevantMovieList = new ArrayList<>();
+        for (MovieListing movieListing : movieListingList) {
+            if (movieListing.getMovie().getStatus() == Movie.NOW_SHOWING || movieListing.getMovie()
+                    .getStatus() == Movie.PREVIEW) {
+                relevantMovieList.add(movieListing);
+            }
+        }
+        if (relevantMovieList.size() == 0) {
             System.out.println("No upcoming movie listings found");
         } else {
-            System.out.println(movieListingList.size() + " upcoming movie listings found\n\n");
-            for (MovieListing movieListing : movieListingList) {
+            System.out.println(relevantMovieList.size() + " upcoming movie listings found\n\n");
+            for (MovieListing movieListing : relevantMovieList) {
                 if (movieListing.getId() != -1) {
                     listMovieListing(movieListing);
                     System.out.println("\n");
@@ -126,7 +153,7 @@ public class CustomerMovieListingUI {
     /**
      * Display a single movie listing in the database
      *
-     * @param movieListing
+     * @param movieListing Movie listing object
      */
     public void listMovieListing(MovieListing movieListing) {
         System.out.println("ID: " + movieListing.getId());

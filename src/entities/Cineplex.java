@@ -1,7 +1,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,16 +10,21 @@ import java.util.List;
  */
 public class Cineplex implements Serializable {
 
-	
-	static final long serialVersionUID =  -7958247120034942612l;
+    /**
+     * UID of serializable class
+     */
+    static final long serialVersionUID = -7958247120034942612l;
+
     /**
      * The cineplex code for a single Cineplex
      */
     private int cineplexCode;
+
     /**
      * The address of the cineplex
      */
     private String address;
+
     /**
      * Name of the cineplex
      */
@@ -30,7 +34,6 @@ public class Cineplex implements Serializable {
      * A list which holds references to all cinema halls {@link CinemaHall} at the particular cineplex location
      */
     private List<CinemaHall> cinemaHallList;
-
 
     /**
      * Constructor

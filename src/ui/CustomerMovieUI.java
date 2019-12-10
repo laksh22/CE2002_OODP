@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,13 +15,23 @@ import manager.CustomerMovieManager;
 public class CustomerMovieUI {
     private int sel = -1;
     private Scanner scanner;
+
+    /**
+     * CustomerMovieManager attribute
+     */
     private CustomerMovieManager customerMovieDBManager;
 
+    /**
+     * Constructor
+     */
     public CustomerMovieUI() {
         scanner = new Scanner(System.in);
         customerMovieDBManager = new CustomerMovieManager();
     }
 
+    /**
+     * Start up sequence for this UI module
+     */
     public void startUp() {
         System.out.println("****** Welcome To Movie Catalog ******\n");
 
@@ -34,8 +45,16 @@ public class CustomerMovieUI {
             System.out.println("(4) - Search For Preview Movies");
             System.out.println("(5) - Search For Now Showing Movies");
 
-            sel = scanner.nextInt();
-            scanner.nextLine();
+            while (true) {
+                try {
+                    sel = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
 
             switch (sel) {
                 case 1:
@@ -134,7 +153,7 @@ public class CustomerMovieUI {
     /**
      * Display a single movie in the UI
      *
-     * @param movie
+     * @param movie Movie object
      */
     private void listMovie(Movie movie) {
         System.out.println("Title: " + movie.getTitle());

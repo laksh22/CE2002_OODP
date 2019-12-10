@@ -13,25 +13,29 @@ public interface ICustomerMovieDAO extends IMovieDAO {
 
     /**
      * Get all movies whose status are "UPCOMING"
-     * @param movieList
+     *
+     * @param movieList Original list in database
      */
     List<Movie> getUpcomingMovies(List<Movie> movieList);
 
     /**
      * Get all movies whose status are "PREVIEW"
-     * @param movieList
+     *
+     * @param movieList Original list in database
      */
     List<Movie> getPreviewMovies(List<Movie> movieList);
 
     /**
      * Get all movies whose status are "NOW SHOWING"
-     * @param movieList
+     *
+     * @param movieList Original list in database
      */
     List<Movie> getShowingNowMovies(List<Movie> movieList);
 
     /**
      * Get all movies whose status are "END OF SHOWING"
-     * @param movieList
+     *
+     * @param movieList Original list in database
      */
     List<Movie> getEndOfShowingMovies(List<Movie> movieList);
 }

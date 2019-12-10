@@ -12,6 +12,12 @@ import cineplexdao.ICineplexDAO;
  */
 public abstract class CineplexDAOFactory {
 
+    /**
+     * Return DAO according to caller type
+     *
+     * @param type Caller type
+     * @return ICineplexDAO
+     */
     public static ICineplexDAO getDAO(String type) {
         if (type.equals("ADMIN")) {
             return new AdminCineplexDAO();

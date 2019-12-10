@@ -9,9 +9,19 @@ import java.io.Serializable;
 
 public class CinemaHall implements Serializable {
 
-	
-	static final long serialVersionUID =  -7199465161254546296l;
+    /**
+     * UID of serializable class
+     */
+    static final long serialVersionUID = -7199465161254546296l;
+
+    /**
+     * Constant value of a normal cinema hall
+     */
     public static final int NORMAL_HALL = 1;
+
+    /**
+     * Constant value of a platinum movie suite cinema hall
+     */
     public static final int PLATINUM_MOVIE_SUITE = 2;
 
     /**
@@ -51,28 +61,38 @@ public class CinemaHall implements Serializable {
         this.hallNumber = hallNumber;
         this.numberOfBookedSeats = numberOfBookedSeats;
     }
-    
+
+    /**
+     * Getter method
+     *
+     * @param hallNumber Hall number
+     */
     public CinemaHall(int hallNumber) {
-    	this.hallNumber = hallNumber;
+        this.hallNumber = hallNumber;
     }
 
+    /**
+     * Getter method
+     *
+     * @return FloorPlan
+     */
     public FloorPlan getFloorPlan() {
         return floorPlan;
     }
 
     /**
-     * Getter for number of booked seats
+     * Getter method
      *
-     * @return
+     * @return Number of booked seats
      */
     public int getNumberOfBookedSeats() {
         return numberOfBookedSeats;
     }
 
     /**
-     * Cinema type
+     * Getter method
      *
-     * @return
+     * @return Cinema Type
      */
     public int getCinemaType() {
         return cinemaType;
@@ -90,7 +110,7 @@ public class CinemaHall implements Serializable {
     /**
      * Getter for the number of seats
      *
-     * @return
+     * @return Number of seats
      */
     public int getNumberOfSeats() {
         return numberOfSeats;
@@ -99,7 +119,7 @@ public class CinemaHall implements Serializable {
     /**
      * Make a copy of the object and return it
      *
-     * @return
+     * @return Instance of cinema hall
      */
     public CinemaHall copy() {
         return new CinemaHall(cinemaType, this.floorPlan.copy(), numberOfSeats, hallNumber, numberOfBookedSeats);

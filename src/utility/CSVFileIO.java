@@ -1,5 +1,6 @@
 package utility;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,17 +13,17 @@ import java.util.List;
 * @author Lakshyajeet Dwivedee 
 */
 public class CSVFileIO {
-
-	/*
-	 * Store parsed CSV data as a list of CSV rows 
+    
+    /**
+	 * Store parsed CSV data as a list of CSV rows
 	 */
     private static ArrayList<CSVRow> CSVInfo = new ArrayList<>();
     
-    /*
-     * Parses CSV and returns it as a list of list of attributes in String form
+    /**
+	 * Parses CSV and returns it as a list of list of attributes in String form
 	 * @param path Path to the CSV file which has to be read
 	 * @return The ArrayList of CSVRow Arraylists
-     */
+	 */
     public static ArrayList<CSVRow> getParsedCSV(String path) {
     	
     	CSVInfo.clear();
@@ -75,20 +76,26 @@ public class CSVFileIO {
         }
         return CSVInfo;
     }
-
-    /*
-     * Takes in a CSVRow and saves it to a CSV file
-   	 * @return The ArrayList of CSVRow Arraylists 
-     */
+    
+    /**
+   	 * Takes in a CSVRow and saves it to a CSV file
+   	 * @return The ArrayList of CSVRow Arraylists
+   	 */
        public static void writeToCSV(String path, CSVRow csvRow) {
     	   FileWriter csvWriter = null;
     	   try {
-    		   csvWriter = new FileWriter(path);
+    		   csvWriter = new FileWriter(path, true);
         	   
         	   List<String> row = csvRow.getRow();
         	   
+        	   // Check if file is empty
+    		   File file = new File(path);
+    		   if(file.length() != 0) {
+    			   csvWriter.append("\n");
+    		   }
+        	   
         	   csvWriter.append(String.join(",", row));
-        	   csvWriter.append("\n");
+        	   
         	   csvWriter.flush();
         	   csvWriter.close();
         	   
@@ -98,10 +105,8 @@ public class CSVFileIO {
     	   
        }
        
-       /*
-        * Rewrites a CSV file
-        * @param path Path of the CSV file
-        * @param table List containing CSVRow objects
+       /**
+        * To ReWrite a CSV
         */
        public static void rewriteToCSV(String path, List<CSVRow> table) {
     	   

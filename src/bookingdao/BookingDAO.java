@@ -11,12 +11,12 @@ import utility.CSVRow;
  */
 public class BookingDAO {
 
-	/*
-	 * Insert a new booking into BookingDB CSV file
+    /*
+     * Insert a new booking into BookingDB CSV file
      * @param bookingData CSVRow containing the data of the booking
-	 */
+     */
     public static void insertBooking(CSVRow bookingData) {
-    	CSVFileIO.writeToCSV("bookings.csv", bookingData);
+        CSVFileIO.writeToCSV("src/bookings.csv", bookingData);
     }
 
     /*
@@ -24,7 +24,7 @@ public class BookingDAO {
      * @return List of CSVRows containing the data of all bookings
      */
     public static List<CSVRow> getBookings() {
-    	List<CSVRow> table = CSVFileIO.getParsedCSV("bookings.csv");
-    	return table;
+        List<CSVRow> table = CSVFileIO.getParsedCSV("src/bookings.csv");
+        return table;
     }
 }

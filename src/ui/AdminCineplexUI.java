@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,29 +14,45 @@ import manager.AdminCineplexManager;
  * @author Gan Shyan
  */
 public class AdminCineplexUI {
+
     private int sel = -1;
     private Scanner scanner;
 
+    /**
+     * AdminCineplexManager attribute
+     */
     private AdminCineplexManager adminCineplexDBManager;
 
-
+    /**
+     * Constructor
+     */
     public AdminCineplexUI() {
         scanner = new Scanner(System.in);
         adminCineplexDBManager = new AdminCineplexManager();
     }
 
+    /**
+     * Start up sequence for this UI module
+     */
     public void startUp() {
         System.out.println("****** Welcome To Cineplex Locations Manager ******\n");
 
         while (sel != 0) {
+
             System.out.print("\n");
             System.out.println("Choose Operation: ");
             System.out.println("(0) - Exit Cineplex Locations Manager");
             System.out.println("(1) - List out all Cineplex location");
             System.out.println("(2) - Search for cineplex");
             System.out.println("(3) - Search for cinema hall");
-            sel = scanner.nextInt();
-            scanner.nextLine();
+
+            try {
+                sel = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.print("Enter a number!\n");
+                scanner.next();
+            }
 
             switch (sel) {
                 case 0:
@@ -75,9 +92,18 @@ public class AdminCineplexUI {
      */
     private void searchForCineplex() {
         System.out.println("\n");
-
-        System.out.println("Enter cineplex ID: ");
-        int id = scanner.nextInt();
+        int id;
+        while (true) {
+            System.out.println("Enter cineplex ID: ");
+            try {
+                id = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Enter a number!");
+                scanner.next();
+            }
+        }
 
         Cineplex cineplex = adminCineplexDBManager.searchCineplex(id);
 
@@ -95,10 +121,20 @@ public class AdminCineplexUI {
         System.out.print("\n");
 
         CinemaHall cinemaHall;
+        int hallNumber;
+        while (true) {
+            try {
+                System.out.print("Enter cinema hall number: ");
+                hallNumber = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Enter a number!\n");
+                scanner.next();
+            }
 
-        System.out.print("Enter cinema hall number: ");
-        int hallNumber = scanner.nextInt();
-        scanner.nextLine();
+        }
+
         cinemaHall = adminCineplexDBManager.searchCinemaHall(hallNumber);
         if (cinemaHall == null) {
             System.out.println("No cinema hall found");
@@ -132,7 +168,7 @@ public class AdminCineplexUI {
     /**
      * Print out the details of a single cinema hall
      *
-     * @param cinemaHall
+     * @param cinemaHall Cinema hall object
      */
     private void printOutCinemaHallDetail(CinemaHall cinemaHall) {
         System.out.println("Cinema hall number - " + cinemaHall.getHallNumber());

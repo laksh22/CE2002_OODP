@@ -19,6 +19,9 @@ import entities.FloorPlan;
  */
 public class CineplexDB {
 
+    /**
+     * File path to the text file
+     */
     private static final String FILE_PATH = ".\\cineplex_db.txt";
 
     /**
@@ -31,6 +34,9 @@ public class CineplexDB {
      */
     private static CineplexDB instance;
 
+    /**
+     * Constructor
+     */
     private CineplexDB() {
         // Read the text file to create the database
          openDatabase();
@@ -40,7 +46,7 @@ public class CineplexDB {
     /**
      * Singleton pattern
      *
-     * @return
+     * @return Static instance of the database
      */
     public static CineplexDB getInstance() {
         if (instance == null) {
@@ -53,7 +59,7 @@ public class CineplexDB {
     /**
      * Getter for the data in this DB
      *
-     * @return
+     * @return Original list of data
      */
     public List<Cineplex> getCineplexList() {
         return cineplexList;

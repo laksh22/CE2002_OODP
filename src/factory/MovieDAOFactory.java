@@ -12,14 +12,18 @@ import moviedao.IMovieDAO;
  */
 public abstract class MovieDAOFactory {
 
-    private static IMovieDAO iMovieDBDAO = null;
-
+    /**
+     * Return DAO according to caller type
+     *
+     * @param type Caller type
+     * @return IMovieDAO
+     */
     public static IMovieDAO getMovieDBDAO(String type) {
         if (type.equals("ADMIN")) {
-            iMovieDBDAO = new AdminMovieDAO();
+            return new AdminMovieDAO();
         } else if (type.equals("CUSTOMER")) {
-            iMovieDBDAO = new CustomerMovieDAO();
+            return new CustomerMovieDAO();
         }
-        return iMovieDBDAO;
+        return null;
     }
 }

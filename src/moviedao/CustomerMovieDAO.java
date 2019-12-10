@@ -12,15 +12,31 @@ import entities.Movie;
  */
 public class CustomerMovieDAO implements ICustomerMovieDAO {
 
+    /**
+     * Constructor
+     */
     public CustomerMovieDAO() {
 
     }
 
+    /**
+     * Get all movies in the database
+     *
+     * @param movieList Original list in database
+     * @return List of movie
+     */
     @Override
     public List<Movie> getAllMovies(List<Movie> movieList) {
         return movieList;
     }
 
+    /**
+     * Get movie by name in the database
+     *
+     * @param name      Name of movie
+     * @param movieList List of movies in database
+     * @return Movie object
+     */
     @Override
     public Movie getMovie(String name, List<Movie> movieList) {
         name = name.trim().toUpperCase();
@@ -33,6 +49,12 @@ public class CustomerMovieDAO implements ICustomerMovieDAO {
     }
 
 
+    /**
+     * Get all movies whose status are "UPCOMING"
+     *
+     * @param movieList Original list in database
+     * @return Movie object
+     */
     @Override
     public List<Movie> getUpcomingMovies(List<Movie> movieList) {
         List<Movie> filteredList = new ArrayList<>();
@@ -44,6 +66,12 @@ public class CustomerMovieDAO implements ICustomerMovieDAO {
         return filteredList;
     }
 
+    /**
+     * Get all movies whose status are "PREVIEW"
+     *
+     * @param movieList Original list in database
+     * @return Movie object
+     */
     @Override
     public List<Movie> getPreviewMovies(List<Movie> movieList) {
         List<Movie> filteredList = new ArrayList<>();
@@ -55,6 +83,12 @@ public class CustomerMovieDAO implements ICustomerMovieDAO {
         return filteredList;
     }
 
+    /**
+     * Get all movies whose status are "NOW SHOWING"
+     *
+     * @param movieList Original list in database
+     * @return List of movies
+     */
     @Override
     public List<Movie> getShowingNowMovies(List<Movie> movieList) {
         List<Movie> filteredList = new ArrayList<>();
@@ -66,6 +100,12 @@ public class CustomerMovieDAO implements ICustomerMovieDAO {
         return filteredList;
     }
 
+    /**
+     * Get all movies whose status are "END OF SHOWING"
+     *
+     * @param movieList Original list in database
+     * @return List of movie
+     */
     @Override
     public List<Movie> getEndOfShowingMovies(List<Movie> movieList) {
         List<Movie> filteredList = new ArrayList<>();

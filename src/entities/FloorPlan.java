@@ -24,9 +24,19 @@ public class FloorPlan implements Serializable {
      */
     private static final int NOT_A_SEAT = -1;
 
-    // Elements to print on the console
+    /**
+     * UI printing element of a booked seat
+     */
     private static final String bookedSeatElement = "[x]";
+
+    /**
+     * UI printing element of a empty seat
+     */
     private static final String emptySeatElement = "[ ]";
+
+    /**
+     * UI printing element of a not seat element
+     */
     private static final String notASeatElement = "   ";
 
     /**
@@ -47,9 +57,9 @@ public class FloorPlan implements Serializable {
     /**
      * Constructor
      *
-     * @param seatingPlan
-     * @param numberOfRows
-     * @param numberOfColumns
+     * @param seatingPlan     Seating plan
+     * @param numberOfRows    Number of rows of the cinema hall
+     * @param numberOfColumns Number of columns of the cinema hall
      */
     public FloorPlan(int[][] seatingPlan, int numberOfRows, int numberOfColumns) {
         this.seatingPlan = seatingPlan;
@@ -60,9 +70,9 @@ public class FloorPlan implements Serializable {
     /**
      * Change the status of a seat.
      *
-     * @param status
-     * @param row
-     * @param column
+     * @param status New seat status
+     * @param row    Row index of seat
+     * @param column Column index of seat
      * @return boolean value indicating if the change in the seat status is successive
      */
     public boolean setSeatStatus(int status, int row, int column) {
@@ -84,12 +94,12 @@ public class FloorPlan implements Serializable {
     /**
      * Check if a seat is available
      *
-     * @param row
-     * @param column
+     * @param row    Row index of seat
+     * @param column Column index of seat
      * @return True if seat is free for booking, false if else
      */
     public boolean getSeatStatus(int row, int column) {
-        if(seatingPlan[row][column] == FREE){
+        if (seatingPlan[row][column] == FREE) {
             return true;
         } else {
             return false;
@@ -141,9 +151,10 @@ public class FloorPlan implements Serializable {
 
     /**
      * Copy this object and returns it
-     * @return
+     *
+     * @return New instance of FloorPlan object
      */
-    public FloorPlan copy(){
+    public FloorPlan copy() {
         return new FloorPlan(seatingPlan.clone(), numberOfRows, numberOfColumns);
     }
 

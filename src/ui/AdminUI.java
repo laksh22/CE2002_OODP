@@ -1,4 +1,6 @@
 package ui;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -11,10 +13,16 @@ public class AdminUI {
     private Scanner scanner;
     private int choice = -1;
 
+    /**
+     * Constructor
+     */
     public AdminUI() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Start up sequence for this UI module
+     */
     public void startUp() {
         System.out.println("****** Welcome Admin ******");
 
@@ -25,8 +33,17 @@ public class AdminUI {
             System.out.println("(2): Access Movie Listings Database");
             System.out.println("(3): Access Cineplex Locations Database");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            while (true) {
+                try {
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
+
 
             switch (choice) {
                 case 1:
@@ -41,7 +58,6 @@ public class AdminUI {
                     AdminCineplexUI adminCineplexDBModule = new AdminCineplexUI();
                     adminCineplexDBModule.startUp();
                     break;
-
             }
         }
     }

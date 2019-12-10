@@ -7,7 +7,7 @@ import utility.CSVRow;
 
 public class PriceDAO {
 	public static void insertPrice(CSVRow priceData) {
-    	CSVFileIO.writeToCSV("price_csv.csv", priceData);
+    	CSVFileIO.writeToCSV("src/price_csv.csv", priceData);
     }
 
     /*
@@ -15,7 +15,7 @@ public class PriceDAO {
      * @return List of CSVRows containing the data of all reviews
      */
     public static List<CSVRow> getPrice() {
-    	List<CSVRow> table = CSVFileIO.getParsedCSV("reviews.csv");
+    	List<CSVRow> table = CSVFileIO.getParsedCSV("src/reviews.csv");
     	return table;
     }
 

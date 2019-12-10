@@ -3,6 +3,7 @@ package ui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,15 +23,29 @@ public class AdminMovieListingUI {
 
     private int sel = -1;
     private Scanner scanner;
+    /**
+     * AdminMovieListingManager attribute
+     */
     private AdminMovieListingManager listingDBManager;
+    /**
+     * AdminCineplexManager attribute
+     */
     private AdminCineplexManager cineplexDBManager;
 
+    /**
+     * Constructor
+     *
+     * @param type Caller type
+     */
     public AdminMovieListingUI(String type) {
         scanner = new Scanner(System.in);
         listingDBManager = new AdminMovieListingManager(type);
         cineplexDBManager = new AdminCineplexManager();
     }
 
+    /**
+     * Start up sequence for this UI module
+     */
     public void startUp() {
         System.out.println("****** Welcome to Movie Listing Manager ******");
 
@@ -39,13 +54,18 @@ public class AdminMovieListingUI {
             System.out.println("(0) - Exit Admin Movie Listing Database Module");
             System.out.println("(1) - Enter New Movie Listing");
             System.out.println("(2) - Remove Movie Listing");
-            System.out.println("(3) - Update MovieListing");
+            System.out.println("(3) - Update MovieListing time");
             System.out.println("(4) - List out all upcoming movie listings");
             System.out.println("(5) - List out all previous listings");
             System.out.println("(6) - List out all cancelled listings");
 
-            sel = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                sel = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.print("Enter a number!\n");
+                scanner.next();
+            }
 
             switch (sel) {
                 case 0:
@@ -58,7 +78,7 @@ public class AdminMovieListingUI {
                     removeMovieListing();
                     break;
                 case 3:
-                    //updateMovieListing();
+                    updateMovieListingTime();
                     break;
                 case 4:
                     listOutAllUpcomingMovieListings();
@@ -107,7 +127,9 @@ public class AdminMovieListingUI {
         }
     }
 
-
+    /**
+     * List out all movie listings that have been cancelled
+     */
     private void listOutAllCancelledMovieListings() {
         List<MovieListing> movieListingList = listingDBManager.getAllCancelledMovieListings();
         if (movieListingList.size() == 0) {
@@ -145,9 +167,19 @@ public class AdminMovieListingUI {
         Cineplex cineplex;
         while (true) {
             // Find the cineplex for the new movie listing
-            System.out.println("Enter cineplex id: ");
-            int cineplexId = scanner.nextInt();
-            scanner.nextLine();
+            int cineplexId;
+            while (true) {
+                try {
+                    System.out.println("Enter cineplex id: ");
+                    cineplexId = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
+
             cineplex = cineplexDBManager.searchCineplex(cineplexId);
             if (cineplex != null) {
                 break;
@@ -157,10 +189,19 @@ public class AdminMovieListingUI {
         }
 
         CinemaHall cinemaHall = null;
+        int cinemaHallNumber;
         while (true) {
-            System.out.println("Enter cinema hall number: ");
-            int cinemaHallNumber = scanner.nextInt();
-            scanner.nextLine();
+            while (true) {
+                try {
+                    System.out.println("Enter cinema hall number: ");
+                    cinemaHallNumber = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
 
             for (CinemaHall c : cineplex.getCinemaHallList()) {
                 if (c.getHallNumber() == cinemaHallNumber) {
@@ -179,9 +220,19 @@ public class AdminMovieListingUI {
 
         int date;
         while (true) {
-            System.out.println("Enter date: ");
-            date = scanner.nextInt();
-            scanner.nextLine();
+
+            while (true) {
+                try {
+                    System.out.println("Enter date: ");
+                    date = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
+
             if (date >= 1 && date <= 31) {
                 break;
             }
@@ -190,35 +241,73 @@ public class AdminMovieListingUI {
 
         int month;
         while (true) {
-            System.out.println("Enter month(JAN - 1, Dec - 12):");
-            month = scanner.nextInt();
-            scanner.nextLine();
+
+            while (true) {
+                try {
+                    System.out.println("Enter month(JAN - 1, Dec - 12):");
+                    month = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
+
             if (month <= 12 && month >= 1) {
                 break;
             }
             System.out.println("Invalid month entered");
         }
 
-        System.out.println("Enter year: ");
-        int year = scanner.nextInt();
-        scanner.nextLine();
+        int year;
+        while (true) {
+            try {
+                System.out.println("Enter year: ");
+                year = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Enter a number!\n");
+                scanner.next();
+            }
+        }
+
 
         int hour;
         while (true) {
-            System.out.println("Enter hour (24h format): ");
-            hour = scanner.nextInt();
-            scanner.nextLine();
+            while (true) {
+                try {
+                    System.out.println("Enter hour (24h format): ");
+                    hour = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
             if (hour <= 23 && hour >= 0) {
                 break;
             }
             System.out.println("Invalid hour entered");
         }
 
+
         int minute;
         while (true) {
-            System.out.println("Enter minute: ");
-            minute = scanner.nextInt();
-            scanner.nextLine();
+            while (true) {
+                try {
+                    System.out.println("Enter minute: ");
+                    minute = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
+
             if (minute <= 59 && minute >= 0) {
                 break;
             }
@@ -239,10 +328,20 @@ public class AdminMovieListingUI {
         int movieListingID;
         while (true) {
             while (true) {
-                System.out.println("\n");
-                System.out.println("Enter movie listing ID: ");
-                movieListingID = scanner.nextInt();
-                scanner.nextLine();
+
+                while (true) {
+                    try {
+                        System.out.println("\n");
+                        System.out.println("Enter movie listing ID: ");
+                        movieListingID = scanner.nextInt();
+                        scanner.nextLine();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Enter a number!\n");
+                        scanner.next();
+                    }
+                }
+
                 if (movieListingID >= 0) {
                     break;
                 }
@@ -262,14 +361,138 @@ public class AdminMovieListingUI {
                 break;
             }
         }
-
-
     }
 
     /**
-     * Display a single movie listing in the database
      *
-     * @param movieListing
+     */
+    private void updateMovieListingTime() {
+        int id;
+        while (true) {
+            try {
+                System.out.println("\nEnter Id of movie listing:");
+                id = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Enter a number!");
+                scanner.next();
+            }
+        }
+
+        MovieListing movieListing = listingDBManager.getMovieListingByID(id);
+
+        if (movieListing == null) {
+            System.out.println("No movie listing found!");
+        } else {
+            System.out.println("Movie listing found, current details:\n");
+            listMovieListing(movieListing);
+
+            int mDate;
+            while (true) {
+                try {
+                    System.out.println("Enter date: ");
+                    mDate = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
+
+
+            int month;
+            while (true) {
+
+                while (true) {
+                    try {
+                        System.out.println("Enter month(JAN - 1, Dec - 12):");
+                        month = scanner.nextInt();
+                        scanner.nextLine();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Enter a number!\n");
+                        scanner.next();
+                    }
+                }
+
+                if (month <= 12 && month >= 1) {
+                    break;
+                }
+                System.out.println("Invalid month entered");
+            }
+
+            int year;
+            while (true) {
+                try {
+                    System.out.println("Enter year: ");
+                    year = scanner.nextInt();
+                    scanner.nextLine();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a number!\n");
+                    scanner.next();
+                }
+            }
+
+
+            int hour;
+            while (true) {
+                while (true) {
+                    try {
+                        System.out.println("Enter hour (24h format): ");
+                        hour = scanner.nextInt();
+                        scanner.nextLine();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Enter a number!\n");
+                        scanner.next();
+                    }
+                }
+                if (hour <= 23 && hour >= 0) {
+                    break;
+                }
+                System.out.println("Invalid hour entered");
+            }
+
+
+            int minute;
+            while (true) {
+                while (true) {
+                    try {
+                        System.out.println("Enter minute: ");
+                        minute = scanner.nextInt();
+                        scanner.nextLine();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Enter a number!\n");
+                        scanner.next();
+                    }
+                }
+
+                if (minute <= 59 && minute >= 0) {
+                    break;
+                }
+                System.out.println("Invalid minute entered");
+            }
+
+            movieListing.getShowTime().setDate(mDate);
+            movieListing.getShowTime().setMonth(month - 1);
+            movieListing.getShowTime().setYear(year - 1900);
+            movieListing.getShowTime().setHours(hour);
+            movieListing.getShowTime().setMinutes(minute);
+
+            System.out.println("Movie listing update!\n");
+
+            listMovieListing(movieListing);
+        }
+    }
+
+    /**
+     * Display a single movie listing in the UI
+     *
+     * @param movieListing Movie listing object
      */
     private void listMovieListing(MovieListing movieListing) {
         System.out.println("ID: " + movieListing.getId());
